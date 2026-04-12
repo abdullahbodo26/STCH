@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-ivory text-bark font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-bark text-ivory rounded-none font-medium tracking-wide hover:bg-bark-dark transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-bark focus:ring-offset-2 focus:ring-offset-ivory;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center gap-2 px-6 py-3 border-2 border-bark text-bark rounded-none font-medium tracking-wide hover:bg-bark hover:text-ivory transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-bark focus:ring-offset-2;
+  }
+
+  .btn-sand {
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-sand text-white rounded-none font-medium tracking-wide hover:bg-sand-dark transition-colors duration-200;
+  }
+
+  .section-title {
+    @apply font-display text-3xl md:text-4xl lg:text-5xl font-semibold text-bark leading-tight;
+  }
+
+  .section-subtitle {
+    @apply text-sand-dark font-medium tracking-widest uppercase text-xs md:text-sm;
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+  }
+
+  .badge-stock {
+    @apply text-xs font-semibold px-2 py-0.5 tracking-wide uppercase;
+  }
+
+  .stock-high   { @apply badge-stock bg-sage/20 text-sage-dark; }
+  .stock-low    { @apply badge-stock bg-sand/30 text-sand-dark; }
+  .stock-out    { @apply badge-stock bg-red-100 text-red-600; }
+
+  .input-field {
+    @apply w-full border border-sand/50 bg-white px-4 py-3 text-bark placeholder:text-sand focus:outline-none focus:border-bark transition-colors;
+  }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .scrollbar-hide { scrollbar-width: none; }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+}
+
+/* Custom range slider */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  background: #E8D5B7;
+  outline: none;
+  border-radius: 0;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  background: #5C3D2E;
+  cursor: pointer;
+  border-radius: 0;
+  border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: #5C3D2E;
+  cursor: pointer;
+  border-radius: 0;
+  border: none;
+}

@@ -1,0 +1,31 @@
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <p class="footer-brand-name">{{ shop.name }}</p>
+        <p class="footer-tagline">Organic Card Holders · Egypt</p>
+        <p class="footer-desc">Handcrafted card holders made from premium organic materials. Every piece is built to last a lifetime.</p>
+      </div>
+      <div>
+        <h4 class="footer-heading">Explore</h4>
+        <ul class="footer-links">
+          {% for link in linklists.footer.links %}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{% endfor %}
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-heading">Contact</h4>
+        <ul class="footer-links">
+          <li><a href="mailto:{{ section.settings.contact_email }}">{{ section.settings.contact_email }}</a></li>
+          <li><a href="tel:{{ section.settings.contact_phone }}">{{ section.settings.contact_phone }}</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</p>
+      <p>Made with care in Egypt</p>
+    </div>
+  </div>
+</footer>
+{% schema %}
+{"name":"Footer","settings":[{"type":"email","id":"contact_email","label":"Email","default":"hello@stch.eg"},{"type":"text","id":"contact_phone","label":"Phone","default":"+20 100 000 0000"}]}
+{% endschema %}

@@ -1,0 +1,5 @@
+<div class="collection-header"><div class="container"><p class="section-label" style="margin-bottom:0.5rem;">Collection</p><h1 class="section-title">{{ collection.title }}</h1>{% if collection.description != blank %}<p style="color:rgba(92,61,46,0.6);margin-top:0.75rem;max-width:520px;">{{ collection.description }}</p>{% endif %}</div></div>
+<div class="container">
+  <div class="collection-toolbar"><div class="toolbar-left"><p class="toolbar-count">{{ collection.products_count }} products</p></div><select class="select-field" onchange="window.location=this.value"><option value="">Sort by</option><option value="?sort_by=price-ascending">Price: Low to High</option><option value="?sort_by=price-descending">Price: High to Low</option><option value="?sort_by=title-ascending">Name A–Z</option><option value="?sort_by=best-selling">Best Selling</option></select></div>
+  <div class="product-grid" style="margin-bottom:4rem;">{% for product in collection.products %}{% render 'product-card', product: product %}{% else %}<p style="grid-column:1/-1;padding:3rem 0;text-align:center;color:rgba(92,61,46,0.5);">No products found.</p>{% endfor %}</div>
+</div>

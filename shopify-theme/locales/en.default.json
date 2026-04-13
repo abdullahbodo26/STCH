@@ -1,0 +1,5 @@
+{
+  "general": {"password_page": {"login_form_heading": "Enter store password"}},
+  "products": {"product": {"add_to_cart": "Add to Cart", "sold_out": "Out of Stock", "unavailable": "Unavailable"}},
+  "cart": {"general": {"title": "Your Cart", "empty": "Your cart is empty", "checkout": "Proceed to Checkout", "subtotal": "Subtotal"}}
+}

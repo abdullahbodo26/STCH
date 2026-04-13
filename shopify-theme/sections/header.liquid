@@ -1,0 +1,33 @@
+{% if section.settings.announcement_text != blank %}
+<div class="announcement">{{ section.settings.announcement_text }}</div>
+{% endif %}
+
+<header class="site-header {% if template.name == 'index' %}transparent{% else %}solid{% endif %}" role="banner">
+  <div class="container">
+    <div class="header-inner">
+      <a href="{{ routes.root_url }}" class="header-logo">{{ shop.name }}<span>Egypt</span></a>
+      <nav class="header-nav" role="navigation">
+        {% for link in linklists.main-menu.links %}
+          <a href="{{ link.url }}" {% if link.active %}class="active"{% endif %}>{{ link.title }}</a>
+        {% endfor %}
+      </nav>
+      <div class="header-actions">
+        <a href="{{ routes.cart_url }}" class="cart-link" aria-label="Cart">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          {% if cart.item_count > 0 %}<span class="cart-count">{{ cart.item_count }}</span>{% endif %}
+        </a>
+        <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="mobile-menu">
+    {% for link in linklists.main-menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}
+    <a href="{{ routes.cart_url }}">Cart ({{ cart.item_count }})</a>
+  </div>
+</header>
+
+{% schema %}
+{"name":"Header","settings":[{"type":"text","id":"announcement_text","label":"Announcement text","default":"Free delivery on orders over EGP 1,000 · Handcrafted in Cairo"}]}
+{% endschema %}

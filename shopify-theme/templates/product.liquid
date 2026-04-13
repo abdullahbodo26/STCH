@@ -1,0 +1,17 @@
+<div class="container"><div class="product-page">
+  <div class="product-media">{% if product.featured_image %}<img src="{{ product.featured_image | image_url: width: 900 }}" alt="{{ product.featured_image.alt | escape }}" style="width:100%;height:100%;object-fit:cover;">{% else %}<svg viewBox="0 0 400 300" style="width:100%;height:100%;"><rect width="400" height="300" fill="#EDE5D4"/><rect x="40" y="40" width="320" height="200" rx="10" fill="#C9A87C" opacity="0.5"/><text x="200" y="155" text-anchor="middle" font-family="Georgia,serif" font-size="18" fill="#5C3D2E" opacity="0.5">{{ product.title }}</text></svg>{% endif %}</div>
+  <div class="product-info">
+    <h1 class="product-title">{{ product.title }}</h1>
+    <p class="product-tagline">{{ product.metafields.custom.tagline }}</p>
+    <p class="product-price">{{ product.price | money }}</p>
+    {% if product.description != blank %}<div class="product-desc">{{ product.description }}</div>{% endif %}
+    <div class="product-meta-grid">
+      {% if product.metafields.custom.material %}<div class="product-meta-cell"><span class="product-meta-label">Material</span><span class="product-meta-value">{{ product.metafields.custom.material }}</span></div>{% endif %}
+      {% if product.metafields.custom.card_slots %}<div class="product-meta-cell"><span class="product-meta-label">Card Slots</span><span class="product-meta-value">Up to {{ product.metafields.custom.card_slots }}</span></div>{% endif %}
+    </div>
+    {% if product.available %}<span class="badge badge--in-stock" style="display:inline-block;margin-bottom:1rem;">In Stock</span>{% else %}<span class="badge badge--out" style="display:inline-block;margin-bottom:1rem;">Out of Stock</span>{% endif %}
+    <form method="post" action="/cart/add"><input type="hidden" name="id" value="{{ product.variants.first.id }}">
+      <div class="product-actions"><button type="submit" class="btn btn-primary" {% unless product.available %}disabled{% endunless %}>Add to Cart</button><a href="/pages/configure" class="btn btn-outline">Customize</a></div>
+    </form>
+  </div>
+</div></div>

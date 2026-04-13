@@ -1,0 +1,42 @@
+<section class="hero">
+  <div class="hero-bg-circle hero-bg-circle--1"></div>
+  <div class="hero-bg-circle hero-bg-circle--2"></div>
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <p class="section-label hero-eyebrow" style="color:var(--sand);">Handcrafted in Egypt</p>
+        <h1 class="hero-title">{{ section.settings.heading | default: 'Carry nature' }}<br><em>{{ section.settings.heading_em | default: 'in your pocket.' }}</em></h1>
+        <p class="hero-body">{{ section.settings.subheading | default: 'Premium card holders handcrafted from organic wood and full-grain leather.' }}</p>
+        <div class="hero-actions">
+          <a href="{{ section.settings.cta_url | default: routes.collections_url }}" class="btn btn-sand">{{ section.settings.cta_label | default: 'Shop Collection' }}</a>
+          <a href="{{ section.settings.cta2_url | default: '/pages/configure' }}" class="btn btn-ghost">{{ section.settings.cta2_label | default: 'Build Yours' }}</a>
+        </div>
+        <div class="hero-stats">
+          <div><span class="hero-stat-num">8</span><span class="hero-stat-label">Models</span></div>
+          <div><span class="hero-stat-num">12</span><span class="hero-stat-label">Designs</span></div>
+          <div><span class="hero-stat-num">6</span><span class="hero-stat-label">Materials</span></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card-preview">
+          <svg id="hero-preview-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+            <rect class="mat-bg" width="400" height="400" fill="#F0E8DC"/>
+            <rect class="mat-body" x="60" y="80" width="280" height="180" rx="10" fill="#5C3D2E"/>
+            <path d="M 160 200 Q 180 185 200 200 Q 220 215 240 200" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="2"/>
+            <rect class="mat-edge" x="60" y="80" width="280" height="180" rx="10" fill="none" stroke="#3D2416" stroke-width="1" opacity="0.5"/>
+          </svg>
+          <div class="hero-dots">
+            <button class="hero-dot active" data-mat="walnut" aria-label="Walnut"></button>
+            <button class="hero-dot" data-mat="oak" aria-label="Oak"></button>
+            <button class="hero-dot" data-mat="bamboo" aria-label="Bamboo"></button>
+            <button class="hero-dot" data-mat="leather-tan" aria-label="Tan Leather"></button>
+            <button class="hero-dot" data-mat="leather-black" aria-label="Black Leather"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{"name":"Hero","settings":[{"type":"text","id":"heading","label":"Heading","default":"Carry nature"},{"type":"text","id":"heading_em","label":"Italic line","default":"in your pocket."},{"type":"textarea","id":"subheading","label":"Body text"},{"type":"text","id":"cta_label","label":"Button 1","default":"Shop Collection"},{"type":"url","id":"cta_url","label":"Button 1 URL"},{"type":"text","id":"cta2_label","label":"Button 2","default":"Build Yours"},{"type":"url","id":"cta2_url","label":"Button 2 URL"}],"presets":[{"name":"Hero"}]}
+{% endschema %}

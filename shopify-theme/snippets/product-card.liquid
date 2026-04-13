@@ -1,0 +1,17 @@
+{% assign stock_status = 'in-stock' %}{% assign stock_label = 'In Stock' %}
+{% if product.available == false %}{% assign stock_status = 'out' %}{% assign stock_label = 'Out of Stock' %}
+{% elsif product.variants.first.inventory_quantity <= 5 and product.variants.first.inventory_quantity > 0 %}{% assign stock_status = 'low-stock' %}{% assign stock_label = 'Only ' | append: product.variants.first.inventory_quantity | append: ' left' %}{% endif %}
+<a href="{{ product.url }}" class="product-card">
+  <div class="product-card__image">
+    {% if product.featured_image %}<img src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.featured_image.alt | escape }}" loading="lazy">
+    {% else %}<svg viewBox="0 0 240 160" style="width:100%;height:100%;"><rect width="240" height="160" fill="#EDE5D4"/><rect x="20" y="20" width="200" height="120" rx="6" fill="#C9A87C" opacity="0.6"/><text x="120" y="88" text-anchor="middle" font-family="Georgia,serif" font-size="14" fill="#5C3D2E" opacity="0.4">{{ product.title }}</text></svg>{% endif %}
+  </div>
+  <div>
+    <h3 class="product-card__name">{{ product.title }}</h3>
+    <p class="product-card__tagline">{{ product.metafields.custom.tagline }}</p>
+    <div class="product-card__footer">
+      <div><span class="badge badge--{{ stock_status }}">{{ stock_label }}</span><p class="product-card__price" style="margin-top:0.3rem;">{{ product.price | money }}</p></div>
+      <form method="post" action="/cart/add"><input type="hidden" name="id" value="{{ product.variants.first.id }}"><input type="hidden" name="quantity" value="1"><button type="submit" class="product-card__add" {% unless product.available %}disabled{% endunless %}><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></button></form>
+    </div>
+  </div>
+</a>

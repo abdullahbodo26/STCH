@@ -1,0 +1,10 @@
+{
+  "sections": {
+    "hero":       {"type": "hero",              "settings": {}},
+    "perks":      {"type": "perks-bar",         "settings": {}},
+    "featured":   {"type": "featured-products", "settings": {"eyebrow": "Featured", "heading": "Bestselling pieces", "products_to_show": 4}},
+    "config-cta": {"type": "config-cta",        "settings": {}},
+    "story":      {"type": "brand-story",       "settings": {}}
+  },
+  "order": ["hero", "perks", "featured", "config-cta", "story"]
+}

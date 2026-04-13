@@ -1,0 +1,22 @@
+<section class="section">
+  <div class="container">
+    <div class="section-header section-header--split">
+      <div>
+        <p class="section-label" style="margin-bottom:0.5rem;">{{ section.settings.eyebrow | default: 'Featured' }}</p>
+        <h2 class="section-title">{{ section.settings.heading | default: 'Bestselling pieces' }}</h2>
+      </div>
+      <a href="{{ section.settings.view_all_url | default: routes.collections_url }}" style="font-size:0.875rem;font-weight:500;color:var(--sand-dark);">View all &rarr;</a>
+    </div>
+    <div class="product-grid">
+      {% assign collection = collections[section.settings.collection] %}
+      {% if collection %}
+        {% for product in collection.products limit: section.settings.products_to_show %}{% render 'product-card', product: product %}{% endfor %}
+      {% else %}
+        {% for product in collections.all.products limit: section.settings.products_to_show %}{% render 'product-card', product: product %}{% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% schema %}
+{"name":"Featured Products","settings":[{"type":"text","id":"eyebrow","label":"Eyebrow","default":"Featured"},{"type":"text","id":"heading","label":"Heading","default":"Bestselling pieces"},{"type":"collection","id":"collection","label":"Collection"},{"type":"range","id":"products_to_show","label":"Products to show","min":2,"max":8,"step":1,"default":4},{"type":"url","id":"view_all_url","label":"View all URL"}],"presets":[{"name":"Featured Products"}]}
+{% endschema %}

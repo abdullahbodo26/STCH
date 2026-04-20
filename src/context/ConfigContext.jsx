@@ -1,58 +1,43 @@
 import React, { createContext, useContext, useState, useMemo } from 'react'
-import { materialOptions, slotOptions, finishOptions, edgeOptions, stitchColors, engravedDesigns, BASE_PRICE } from '../data/configOptions'
+import { ENGRAVING_FONTS, BASE_PRICE, ENGRAVING_PRICE, GIFT_WRAP_PRICE } from '../data/configOptions'
 
 const ConfigContext = createContext(null)
 
 export function ConfigProvider({ children }) {
-  const [material, setMaterial]     = useState(materialOptions[0])
-  const [slots, setSlots]           = useState(slotOptions[1])
-  const [finish, setFinish]         = useState(finishOptions[0])
-  const [edge, setEdge]             = useState(edgeOptions[0])
-  const [stitch, setStitch]         = useState(stitchColors[0])
-  const [design, setDesign]         = useState(engravedDesigns[0])
-  const [customText, setCustomText] = useState('')
-  const [giftWrap, setGiftWrap]     = useState(false)
-  const [giftNote, setGiftNote]     = useState('')
+  const [engravingText, setEngravingText] = useState('')
+  const [font, setFont]         = useState(ENGRAVING_FONTS[0])
+  const [fontSize, setFontSize] = useState(22)
+  const [posX, setPosX]         = useState(35)
+  const [posY, setPosY]         = useState(50)
+  const [giftWrap, setGiftWrap] = useState(false)
+  const [giftNote, setGiftNote] = useState('')
+
+  const hasEngraving = engravingText.trim().length > 0
 
   const totalPrice = useMemo(() => {
-    return (
-      BASE_PRICE +
-      (material?.price ?? 0) +
-      (slots?.price ?? 0) +
-      (finish?.price ?? 0) +
-      (edge?.price ?? 0) +
-      (design?.price ?? 0) +
-      (giftWrap ? 80 : 0)
-    )
-  }, [material, slots, finish, edge, design, giftWrap])
-
-  const config = { material, slots, finish, edge, stitch, design, customText, giftWrap, giftNote }
+    return BASE_PRICE + (hasEngraving ? ENGRAVING_PRICE : 0) + (giftWrap ? GIFT_WRAP_PRICE : 0)
+  }, [hasEngraving, giftWrap])
 
   function resetConfig() {
-    setMaterial(materialOptions[0])
-    setSlots(slotOptions[1])
-    setFinish(finishOptions[0])
-    setEdge(edgeOptions[0])
-    setStitch(stitchColors[0])
-    setDesign(engravedDesigns[0])
-    setCustomText('')
+    setEngravingText('')
+    setFont(ENGRAVING_FONTS[0])
+    setFontSize(22)
+    setPosX(35)
+    setPosY(50)
     setGiftWrap(false)
     setGiftNote('')
   }
 
   return (
     <ConfigContext.Provider value={{
-      config, totalPrice,
-      material, setMaterial,
-      slots, setSlots,
-      finish, setFinish,
-      edge, setEdge,
-      stitch, setStitch,
-      design, setDesign,
-      customText, setCustomText,
+      engravingText, setEngravingText,
+      font, setFont,
+      fontSize, setFontSize,
+      posX, setPosX,
+      posY, setPosY,
       giftWrap, setGiftWrap,
       giftNote, setGiftNote,
-      resetConfig,
+      hasEngraving, totalPrice, resetConfig,
     }}>
       {children}
     </ConfigContext.Provider>

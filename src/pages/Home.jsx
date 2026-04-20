@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, Leaf, Zap, Award, Truck, Pencil } from 'lucide-react'
 import { products } from '../data/products'
 import ProductCard from '../components/ProductCard'
-import STCHCardHolder from '../components/STCHCardHolder'
+import ProductImage from '../components/ProductImage'
 
 export default function Home() {
   return (
@@ -35,10 +35,8 @@ export default function Home() {
             </div>
           </div>
           <div className="flex items-center justify-center">
-            <div className="relative w-full max-w-lg">
-              <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-8 sm:p-12">
-                <STCHCardHolder engravingText="STCH" fontFamily="'Playfair Display', serif" fontSize={30} posX={35} posY={50} className="w-full drop-shadow-2xl" />
-              </div>
+            <div className="relative w-full max-w-sm">
+              <ProductImage variant="plain" className="w-full shadow-2xl" />
               <p className="text-center text-ivory/30 text-xs tracking-widest uppercase mt-5">Cherry Wood · Laser Engraved</p>
             </div>
           </div>
@@ -100,9 +98,27 @@ export default function Home() {
                 <Link to="/shop" className="inline-flex items-center gap-2 px-5 py-3 border border-ivory/25 text-ivory text-sm hover:border-sand hover:text-sand transition-colors">Browse Products</Link>
               </div>
             </div>
-            <div className="bg-white/5 border border-white/10 p-8 sm:p-12">
-              <STCHCardHolder engravingText="Omar" fontFamily="'Dancing Script', cursive" fontSize={32} posX={40} posY={52} className="w-full" />
-              <p className="text-center text-ivory/30 text-xs mt-5 tracking-wide">Example: "Omar" in Script · +EGP 120</p>
+            <div className="relative max-w-xs mx-auto">
+              <ProductImage variant="plain" className="w-full shadow-xl" />
+              {/* Engraving preview overlay */}
+              <div
+                className="absolute pointer-events-none select-none"
+                style={{
+                  left: '38%',
+                  top: '48%',
+                  transform: 'translate(-50%, -50%)',
+                  fontFamily: "'Dancing Script', cursive",
+                  fontSize: '28px',
+                  color: '#3D1500',
+                  opacity: 0.82,
+                  textShadow: '0px 1px 2px rgba(0,0,0,0.25)',
+                  mixBlendMode: 'multiply',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                Omar
+              </div>
+              <p className="text-center text-ivory/30 text-xs mt-4 tracking-wide">Example: "Omar" in Script · +EGP 120</p>
             </div>
           </div>
         </div>

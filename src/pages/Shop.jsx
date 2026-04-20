@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { ShoppingBag, ArrowLeft, Pencil } from 'lucide-react'
 import { products, getStockStatus, formatPrice } from '../data/products'
-import STCHCardHolder from '../components/STCHCardHolder'
+import ProductImage from '../components/ProductImage'
 import { useCart } from '../context/CartContext'
 
 export default function Shop() {
@@ -59,8 +59,8 @@ function ShopCard({ product }) {
     <Link to={`/shop/${product.id}`} className="block group">
       <div className="relative bg-white border border-sand/20 overflow-hidden">
         {product.tag && <span className="absolute top-3 left-3 z-10 text-[10px] font-semibold tracking-wider uppercase px-2.5 py-1 bg-bark text-ivory">{product.tag}</span>}
-        <div className="p-8 sm:p-10 transition-transform duration-500 group-hover:scale-[1.02]">
-          <STCHCardHolder variant={product.variant} className="w-full" />
+        <div className="transition-transform duration-500 group-hover:scale-[1.02]">
+          <ProductImage variant={product.variant} className="w-full" />
         </div>
       </div>
       <div className="pt-5 pb-2">
@@ -119,7 +119,7 @@ function ProductDetail({ id }) {
         </Link>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
           <div className="bg-white border border-sand/20 p-10 sm:p-16">
-            <STCHCardHolder variant={product.variant} className="w-full" />
+            <ProductImage variant={product.variant} className="w-full" />
           </div>
           <div className="flex flex-col justify-center">
             {product.tag && <span className="inline-block text-[11px] font-semibold tracking-wider uppercase px-2.5 py-1 bg-bark text-ivory mb-5 self-start">{product.tag}</span>}
@@ -152,7 +152,7 @@ function ProductDetail({ id }) {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
             {products.filter(p => p.id !== id).map(p => (
               <Link key={p.id} to={`/shop/${p.id}`} className="flex gap-5 bg-white border border-sand/20 p-5 hover:border-sand transition-colors">
-                <div className="w-24 shrink-0 bg-ivory-dark p-2"><STCHCardHolder variant={p.variant} className="w-full" /></div>
+                <div className="w-24 shrink-0"><ProductImage variant={p.variant} className="w-full" /></div>
                 <div className="flex-1">
                   <p className="font-display font-semibold text-bark">{p.name}</p>
                   <p className="text-xs text-bark/50 mt-1">{p.tagline}</p>

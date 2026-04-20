@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { ShoppingBag, RotateCcw, Gift, Check } from 'lucide-react'
 import { useConfig } from '../context/ConfigContext'
 import { useCart } from '../context/CartContext'
-import STCHCardHolder from '../components/STCHCardHolder'
+import ProductImage from '../components/ProductImage'
 import { ENGRAVING_FONTS, BASE_PRICE, ENGRAVING_PRICE, GIFT_WRAP_PRICE } from '../data/configOptions'
 import { formatPrice } from '../data/products'
 
@@ -31,8 +31,8 @@ export default function Configurator() {
     const rect = previewRef.current.getBoundingClientRect()
     const x = Math.round(((clientX - rect.left) / rect.width) * 100)
     const y = Math.round(((clientY - rect.top)  / rect.height) * 100)
-    setPosX(Math.max(5, Math.min(72, x)))
-    setPosY(Math.max(8, Math.min(90, y)))
+    setPosX(Math.max(5, Math.min(95, x)))
+    setPosY(Math.max(5, Math.min(95, y)))
   }, [setPosX, setPosY])
 
   const onMouseDown = useCallback((e) => { setIsDragging(true); updatePos(e.clientX, e.clientY) }, [updatePos])
@@ -79,34 +79,51 @@ export default function Configurator() {
 
           {/* LEFT: Interactive preview */}
           <div>
-            <div
-              ref={previewRef}
-              onMouseDown={onMouseDown}
-              onMouseMove={onMouseMove}
-              onMouseUp={onMouseUp}
-              onMouseLeave={onMouseUp}
-              onTouchStart={onTouchStart}
-              onTouchMove={onTouchMove}
-              className={`relative bg-white border border-sand/20 overflow-hidden select-none ${engravingText.trim() ? 'cursor-crosshair' : 'cursor-default'}`}
-              style={{ touchAction: 'none' }}
+            <ProductImage
+              variant="plain"
+              className={`w-full max-w-sm mx-auto select-none border border-sand/20 shadow-lg ${engravingText.trim() ? 'cursor-crosshair' : 'cursor-default'}`}
             >
-              <div className="p-6 sm:p-10">
-                <STCHCardHolder
-                  engravingText={engravingText}
-                  fontFamily={font.family}
-                  fontSize={fontSize}
-                  posX={posX}
-                  posY={posY}
-                  showPosition={isDragging}
-                  className="w-full max-w-2xl mx-auto"
-                />
-              </div>
+              {/* Invisible event-capture layer so clicks/drags register on the image */}
+              <div
+                ref={previewRef}
+                onMouseDown={onMouseDown}
+                onMouseMove={onMouseMove}
+                onMouseUp={onMouseUp}
+                onMouseLeave={onMouseUp}
+                onTouchStart={onTouchStart}
+                onTouchMove={onTouchMove}
+                className="absolute inset-0 z-10"
+                style={{ touchAction: 'none' }}
+              />
+
+              {/* Engraving text overlay */}
               {engravingText.trim() && (
-                <div className="absolute bottom-3 left-0 right-0 text-center">
-                  <span className="text-[11px] text-bark/40 tracking-wide">Click or drag anywhere to reposition your text</span>
+                <div
+                  className="absolute z-20 pointer-events-none select-none"
+                  style={{
+                    left: `${posX}%`,
+                    top: `${posY}%`,
+                    transform: 'translate(-50%, -50%)',
+                    fontFamily: font.family,
+                    fontSize: `${fontSize}px`,
+                    color: '#3D1500',
+                    opacity: 0.88,
+                    textShadow: '0px 1px 2px rgba(0,0,0,0.3)',
+                    mixBlendMode: 'multiply',
+                    whiteSpace: 'nowrap',
+                    userSelect: 'none',
+                  }}
+                >
+                  {engravingText}
                 </div>
               )}
-            </div>
+
+              {engravingText.trim() && (
+                <div className="absolute bottom-2 left-0 right-0 z-20 text-center pointer-events-none">
+                  <span className="text-[10px] text-bark/50 tracking-wide bg-white/70 px-2 py-0.5">Click or drag to reposition</span>
+                </div>
+              )}
+            </ProductImage>
 
             {/* Font preview strip */}
             {engravingText.trim() && (
@@ -194,12 +211,12 @@ export default function Configurator() {
                   <div className="space-y-3">
                     <div className="flex items-center gap-3">
                       <span className="text-xs text-bark/40 w-16">Left ←</span>
-                      <input type="range" min={5} max={72} value={posX} onChange={e => setPosX(Number(e.target.value))} className="flex-1" />
+                      <input type="range" min={5} max={95} value={posX} onChange={e => setPosX(Number(e.target.value))} className="flex-1" />
                       <span className="text-xs text-bark/40 w-16 text-right">→ Right</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <span className="text-xs text-bark/40 w-16">Top ↑</span>
-                      <input type="range" min={8} max={90} value={posY} onChange={e => setPosY(Number(e.target.value))} className="flex-1" />
+                      <input type="range" min={5} max={95} value={posY} onChange={e => setPosY(Number(e.target.value))} className="flex-1" />
                       <span className="text-xs text-bark/40 w-16 text-right">↓ Bottom</span>
                     </div>
                   </div>

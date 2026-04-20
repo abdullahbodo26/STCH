@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { ShoppingBag, Pencil } from 'lucide-react'
 import { getStockStatus, formatPrice } from '../data/products'
 import { useCart } from '../context/CartContext'
-import STCHCardHolder from './STCHCardHolder'
+import ProductImage from './ProductImage'
 
 export default function ProductCard({ product }) {
   const { addItem } = useCart()
@@ -27,15 +27,13 @@ export default function ProductCard({ product }) {
 
   return (
     <Link to={`/shop/${product.id}`} className="block group card-hover">
-      <div className="relative overflow-hidden bg-white border border-sand/20 p-6 sm:p-8">
+      <div className="relative overflow-hidden border border-sand/20">
         {product.tag && (
           <span className="absolute top-3 left-3 text-[10px] font-semibold tracking-wider uppercase px-2.5 py-1 bg-bark text-ivory z-10">
             {product.tag}
           </span>
         )}
-        <div className="transition-transform duration-500 group-hover:scale-[1.03]">
-          <STCHCardHolder variant={product.variant} className="w-full" />
-        </div>
+        <ProductImage variant={product.variant} className="w-full transition-transform duration-500 group-hover:scale-[1.03]" />
       </div>
       <div className="pt-4 pb-2">
         <div className="flex items-start justify-between gap-2">
